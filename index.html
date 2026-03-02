@@ -152,14 +152,14 @@
             const command = document.getElementById('installCommand').innerText;
             const copyIcon = document.getElementById('copyIcon');
             const copyText = document.getElementById('copyText');
-            
+
             try {
                 await navigator.clipboard.writeText(command);
-                
+
                 // Visual feedback
                 copyIcon.style.display = 'none';
                 copyText.classList.remove('hidden');
-                
+
                 setTimeout(() => {
                     copyIcon.style.display = 'block';
                     copyText.classList.add('hidden');
