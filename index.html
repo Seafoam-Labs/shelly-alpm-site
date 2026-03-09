@@ -89,15 +89,33 @@
             <div class="max-w-4xl mx-auto">
                 <div class="bg-black/50 rounded-2xl p-8 border border-white/5">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                        <i data-lucide="terminal" class="text-blue-500"></i> Quick Install
+                        <i data-lucide="terminal" class="text-blue-500"></i> Installation
                     </h2>
-                    <p class="text-gray-400 mb-6">Run this command in your terminal to install the latest version of Shelly:</p>
-                    <div class="bg-black rounded-lg p-4 font-mono text-sm text-green-400 border border-white/10 flex justify-between items-center group">
-                        <code id="installCommand" class="break-all">curl -fsSL https://raw.githubusercontent.com/ZoeyErinBauer/Shelly-ALPM/master/web-install.sh | sudo bash</code>
-                        <button onclick="copyCommand()" class="text-gray-500 hover:text-white p-2 transition-colors opacity-0 group-hover:opacity-100 flex items-center gap-2">
+                    <p class="text-gray-400 mb-6">Recommended install for Shelly is for CachyOS or using CachyOS packages:</p>
+                    <div class="bg-black rounded-lg p-4 font-mono text-sm text-green-400 border border-white/10 flex justify-between items-center group mb-6">
+                        <code id="installCommand" class="break-all">sudo pacman -S shelly</code>
+                        <button onclick="copyCommand('installCommand', 'copyIcon', 'copyText')" class="text-gray-500 hover:text-white p-2 transition-colors opacity-0 group-hover:opacity-100 flex items-center gap-2">
                             <i data-lucide="copy" class="w-4 h-4" id="copyIcon"></i>
                             <span id="copyText" class="text-[10px] hidden">Copied!</span>
                         </button>
+                    </div>
+                    
+                    <p class="text-gray-400 mb-6">To install with an AUR helper like yay or paru:</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-black rounded-lg p-4 font-mono text-sm text-green-400 border border-white/10 flex justify-between items-center group">
+                            <code id="yayCommand" class="break-all">yay -S shelly</code>
+                            <button onclick="copyCommand('yayCommand', 'copyIconYay', 'copyTextYay')" class="text-gray-500 hover:text-white p-2 transition-colors opacity-0 group-hover:opacity-100 flex items-center gap-2">
+                                <i data-lucide="copy" class="w-4 h-4" id="copyIconYay"></i>
+                                <span id="copyTextYay" class="text-[10px] hidden">Copied!</span>
+                            </button>
+                        </div>
+                        <div class="bg-black rounded-lg p-4 font-mono text-sm text-green-400 border border-white/10 flex justify-between items-center group">
+                            <code id="paruCommand" class="break-all">paru -S shelly</code>
+                            <button onclick="copyCommand('paruCommand', 'copyIconParu', 'copyTextParu')" class="text-gray-500 hover:text-white p-2 transition-colors opacity-0 group-hover:opacity-100 flex items-center gap-2">
+                                <i data-lucide="copy" class="w-4 h-4" id="copyIconParu"></i>
+                                <span id="copyTextParu" class="text-[10px] hidden">Copied!</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,10 +166,10 @@
     <script>
         lucide.createIcons();
 
-        async function copyCommand() {
-            const command = document.getElementById('installCommand').innerText;
-            const copyIcon = document.getElementById('copyIcon');
-            const copyText = document.getElementById('copyText');
+        async function copyCommand(elementId, iconId, textId) {
+            const command = document.getElementById(elementId).innerText;
+            const copyIcon = document.getElementById(iconId);
+            const copyText = document.getElementById(textId);
 
             try {
                 await navigator.clipboard.writeText(command);
